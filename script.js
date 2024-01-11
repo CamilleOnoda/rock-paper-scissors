@@ -1,14 +1,22 @@
-const choiceArray = ['Rock', 'Scissors', 'Paper'];
+const choiceArray = ['rock', 'scissors', 'paper'];
 
-function getComputerChoice(choices) {
+function getRandomChoice(choices) {
     console.log(choices[Math.floor(Math.random() * choices.length)]);
 }
 
-function getUserChoice(choices) {
-    console.log(choices[Math.floor(Math.random() * choiceArray.length)]);
+let playerSelection = getRandomChoice(choiceArray);
+let computerSelection = getRandomChoice(choiceArray);
+
+function playRound(player, computer) {
+    if (player == computer) {
+        console.log("It's a tie!");
+    } else if ((player == "rock" && computer == "scissors" ) ||
+    (player == "scissors" && computer == "paper" ) ||
+    (player == "paper" && computer == "rock" )) {
+        console.log("You win!");
+    } else {
+        console.log("You lose!");
+    }
 }
 
-let playerSelection = getUserChoice(choiceArray);
-let computerSelection = getComputerChoice(choiceArray);
-
-
+playRound(playerSelection, computerSelection)
