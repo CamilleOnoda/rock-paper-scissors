@@ -4,4 +4,11 @@ function getComputerChoice(choices) {
     console.log(choices[Math.floor(Math.random() * choices.length)]);
 }
 
-getComputerChoice(choiceArray);
+function getUserChoice(choices) {
+    console.log(choices[Math.floor(Math.random() * choiceArray.length)]);
+}
+
+let playerSelection = getUserChoice(choiceArray);
+let computerSelection = getComputerChoice(choiceArray);
+
+
