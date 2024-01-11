@@ -27,7 +27,7 @@ function playRound(player, computer) {
 
 function game() {
     while (playerScore < score && computerScore < score) {
-        let playerSelection = getRandomChoice(choiceArray);
+        let playerSelection = window.prompt("Choose between rock, paper or scissors:").toLowerCase();
         let computerSelection = getRandomChoice(choiceArray);
 
         playRound(playerSelection, computerSelection);
