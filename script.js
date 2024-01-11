@@ -1,11 +1,13 @@
 const choiceArray = ['rock', 'scissors', 'paper'];
 
 function getRandomChoice(choices) {
-    console.log(choices[Math.floor(Math.random() * choices.length)]);
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
 let playerSelection = getRandomChoice(choiceArray);
 let computerSelection = getRandomChoice(choiceArray);
+console.log(playerSelection);
+console.log(computerSelection);
 
 function playRound(player, computer) {
     if (player == computer) {
