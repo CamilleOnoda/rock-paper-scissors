@@ -3,6 +3,15 @@ const score = 5;
 let playerScore = 0;
 let computerScore = 0;
 
+
+const btns = document.querySelectorAll('button');
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        game();
+    });
+});
+
+
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -43,7 +52,7 @@ function restartGame() {
     };
 };
 
-function game() {   
+function game() {
     while (playerScore < score && computerScore < score) {
         let playerSelection = "";
         while (!choice.includes(playerSelection)) {
@@ -65,4 +74,4 @@ function game() {
     restartGame();
 };
 
-game();
+//game();
