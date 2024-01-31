@@ -3,15 +3,6 @@ const score = 5;
 let playerScore = 0;
 let computerScore = 0;
 
-
-const btns = document.querySelectorAll('button');
-btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        game();
-    });
-});
-
-
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -37,13 +28,13 @@ function playRound(player, computer) {
 }
 
 function restartGame() {
-    let playAgain = "";
+   let playAgain = "";
     while (!(playAgain === "yes" && !playAgain === "no")) {
         playAgain = window.prompt("Do you want to play again? (yes or no)");
         playAgain = playAgain.toLowerCase();
         if (playAgain === "yes") {
             playerScore = 0;
-            computerScore = 0;
+           computerScore = 0;
             game();
         } else if (playAgain === "no") {
             alert("Thank you for playing!");
@@ -53,25 +44,27 @@ function restartGame() {
 };
 
 function game() {
-    while (playerScore < score && computerScore < score) {
-        let playerSelection = "";
-        while (!choice.includes(playerSelection)) {
-            playerSelection = window.prompt("Choose between rock, paper or scissors:");
-            playerSelection = playerSelection.toLowerCase();
-        }
+    const btns = document.querySelectorAll('button');
+
+    function handleButtonClick() {
         let computerSelection = computerChoice(choice);
-
+        playerSelection = this.id;
         playRound(playerSelection, computerSelection);
+        console.log(playerScore);
+        console.log(computerScore);
 
-        console.log(`Player score: ${playerScore}`);
-        console.log(`Computer score: ${computerScore}`);
-    }
+        if (playerScore == score || computerScore == score) {
+            console.log(`Final score: 
+            - Player: ${playerScore}
+            - Computer: ${computerScore}`);
+            restartGame();
+            };
+        }
 
-    console.log(`Final score: 
-    - Player: ${playerScore}
-    - Computer: ${computerScore}`);
+    btns.forEach(btn => {
+        btn.addEventListener('click', handleButtonClick)
+    });
 
-    restartGame();
 };
 
-//game();
+game();
