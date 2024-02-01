@@ -2,6 +2,8 @@ const choice = ['rock', 'scissors', 'paper'];
 const score = 5;
 let playerScore = 0;
 let computerScore = 0;
+let gameMessage = document.createElement('p');
+
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -13,53 +15,73 @@ function computerChoice(choices) {
 
 function playRound(player, computer) {
     if (player == computer) {
-        console.log("It's a tie!");
+        gameMessage.textContent = "It's a tie!";
+        document.body.appendChild(gameMessage);
+
     } else if (
     (player == "rock" && computer == "scissors" ) ||
     (player == "scissors" && computer == "paper" ) ||
     (player == "paper" && computer == "rock" )
     ) {
-        console.log(`You win! ${capitalizeFirstLetter(player)} beats ${capitalizeFirstLetter(computer)}.`);
+        gameMessage.textContent = `You win! ${capitalizeFirstLetter(player)} beats ${capitalizeFirstLetter(computer)}.`;
+        document.body.appendChild(gameMessage);
         return playerScore++;
+
     } else {
-        console.log(`You lose! ${capitalizeFirstLetter(computer)} beats ${capitalizeFirstLetter(player)}.`);
+        gameMessage.textContent = `You lose! ${capitalizeFirstLetter(computer)} beats ${capitalizeFirstLetter(player)}.`;
+        document.body.appendChild(gameMessage);
         return computerScore++;
     }
-}
-
-function restartGame() {
-   let playAgain = "";
-    while (!(playAgain === "yes" && !playAgain === "no")) {
-        playAgain = window.prompt("Do you want to play again? (yes or no)");
-        playAgain = playAgain.toLowerCase();
-        if (playAgain === "yes") {
-            playerScore = 0;
-           computerScore = 0;
-            game();
-        } else if (playAgain === "no") {
-            alert("Thank you for playing!");
-            break;
-        }
-    };
 };
 
 function game() {
     const btns = document.querySelectorAll('button');
+    let results = document.createElement('div');
+    let playerPoints = document.createElement('p');
+    let computerPoints = document.createElement('p');
 
     function handleButtonClick() {
         let computerSelection = computerChoice(choice);
         playerSelection = this.id;
+
         playRound(playerSelection, computerSelection);
-        console.log(playerScore);
-        console.log(computerScore);
+
+        playerPoints.textContent = `Your score: ${playerScore}`;
+        results.appendChild(playerPoints);
+        computerPoints.textContent = `Computer's score: ${computerScore}`;
+        results.appendChild(computerPoints);
+
+        document.body.appendChild(results);
 
         if (playerScore == score || computerScore == score) {
-            console.log(`Final score: 
-            - Player: ${playerScore}
-            - Computer: ${computerScore}`);
-            restartGame();
-            };
-        }
+            let restartButton = document.createElement('p');
+            restartButton.textContent = "Play again?";
+            document.body.appendChild(restartButton);
+
+            let yesButton = document.createElement('button');
+            yesButton.textContent = "Yes";
+            document.body.appendChild(yesButton);
+
+            let noButton = document.createElement('button');
+            noButton.textContent = "No";
+            document.body.appendChild(noButton);
+            
+            yesButton.addEventListener('click', () => {
+                playerScore = 0;
+                computerScore = 0;
+                gameMessage.textContent = "";
+                playerPoints.textContent = "";
+                computerPoints.textContent = "";
+                restartButton.textContent = "";
+                yesButton.remove();
+                noButton.remove();
+                game();
+            });
+            noButton.addEventListener('click', () => {
+                console.log("Bye!");
+            });
+        };
+    };
 
     btns.forEach(btn => {
         btn.addEventListener('click', handleButtonClick)
