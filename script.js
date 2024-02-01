@@ -1,8 +1,17 @@
 const choice = ['rock', 'scissors', 'paper'];
 const score = 5;
-let playerScore = 0;
-let computerScore = 0;
+let playerScore = {score : 0};
+let computerScore = {score : 0};
+
 let gameMessage = document.createElement('p');
+let results = document.createElement('div');
+let playerPoints = document.createElement('p');
+let computerPoints = document.createElement('p');
+
+document.body.appendChild(gameMessage);
+document.body.appendChild(results);
+results.appendChild(playerPoints);
+results.appendChild(computerPoints);
 
 
 function capitalizeFirstLetter(str) {
@@ -13,7 +22,7 @@ function computerChoice(choices) {
     return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function playRound(player, computer) {
+function playRound(player, computer, gameMessage, playerScore, computerScore) {
     if (player == computer) {
         gameMessage.textContent = "It's a tie!";
         document.body.appendChild(gameMessage);
@@ -25,67 +34,105 @@ function playRound(player, computer) {
     ) {
         gameMessage.textContent = `You win! ${capitalizeFirstLetter(player)} beats ${capitalizeFirstLetter(computer)}.`;
         document.body.appendChild(gameMessage);
-        return playerScore++;
+        playerScore.score++;
 
     } else {
         gameMessage.textContent = `You lose! ${capitalizeFirstLetter(computer)} beats ${capitalizeFirstLetter(player)}.`;
         document.body.appendChild(gameMessage);
-        return computerScore++;
+        computerScore.score++;
     }
 };
 
 function game() {
     const btns = document.querySelectorAll('button');
-    let results = document.createElement('div');
-    let playerPoints = document.createElement('p');
-    let computerPoints = document.createElement('p');
 
-    function handleButtonClick() {
+    function handleButtonClick(event) {
         let computerSelection = computerChoice(choice);
-        playerSelection = this.id;
+        playerSelection = event.target.id;
+        playRound(playerSelection, computerSelection, gameMessage, playerScore, computerScore);
+        trackScore(playerScore, computerScore);
+    };
 
-        playRound(playerSelection, computerSelection);
 
-        playerPoints.textContent = `Your score: ${playerScore}`;
+    function trackScore(playerScore, computerScore) {
+        playerPoints.textContent = `Your score: ${playerScore.score}`;
         results.appendChild(playerPoints);
-        computerPoints.textContent = `Computer's score: ${computerScore}`;
+        computerPoints.textContent = `Computer's score: ${computerScore.score}`;
         results.appendChild(computerPoints);
 
         document.body.appendChild(results);
 
-        if (playerScore == score || computerScore == score) {
-            let restartButton = document.createElement('p');
-            restartButton.textContent = "Play again?";
-            document.body.appendChild(restartButton);
-
-            let yesButton = document.createElement('button');
-            yesButton.textContent = "Yes";
-            document.body.appendChild(yesButton);
-
-            let noButton = document.createElement('button');
-            noButton.textContent = "No";
-            document.body.appendChild(noButton);
-            
-            yesButton.addEventListener('click', () => {
-                playerScore = 0;
-                computerScore = 0;
-                gameMessage.textContent = "";
+        if (playerScore.score == score || computerScore.score == score) {
+            if (playerScore.score == score) {
                 playerPoints.textContent = "";
                 computerPoints.textContent = "";
-                restartButton.textContent = "";
-                yesButton.remove();
-                noButton.remove();
-                game();
-            });
-            noButton.addEventListener('click', () => {
-                console.log("Bye!");
-            });
+                gameMessage.textContent = "You win!";
+                playerScore.score = 0;
+                restartGame(playerScore, computerScore);
+            };
+    
+            if (computerScore.score == score) {
+                playerPoints.textContent = "";
+                computerPoints.textContent = "";
+                gameMessage.textContent = "The computer wins!";
+                computerScore.score = 0;
+                restartGame(playerScore, computerScore);
+            };
         };
     };
 
-    btns.forEach(btn => {
-        btn.addEventListener('click', handleButtonClick)
-    });
+    function restartGame(playerScore, computerScore) {
+        let restartButton = document.createElement('p');
+        restartButton.textContent = "Play again?";
+        document.body.appendChild(restartButton);
+
+        let yesButton = document.createElement('button');
+        yesButton.textContent = "Yes";
+        document.body.appendChild(yesButton);
+
+        let noButton = document.createElement('button');
+        noButton.textContent = "No";
+        document.body.appendChild(noButton);
+            
+        yesButton.addEventListener('click', () => {
+            gameMessage.textContent = "";
+            playerPoints.textContent = "";
+            computerPoints.textContent = "";
+            restartButton.textContent = "";
+            yesButton.remove();
+            noButton.remove();
+            results.remove();
+            playerScore.score = 0;
+            computerScore.score = 0;
+            game();
+        });
+        
+        noButton.addEventListener('click', () => {
+            restartButton.textContent = "";
+            gameMessage.textContent = "";
+            yesButton.remove();
+            noButton.remove();
+            results.remove();
+            playerScore.score = 0;
+            computerScore.score = 0;
+            console.log("Bye!");
+        });
+    };
+
+    function addEventListener() {
+        btns.forEach(btn => {
+            btn.addEventListener('click', handleButtonClick);
+        });
+    }
+
+    function removeEventListener() {
+        btns.forEach(btn => {
+            btn.removeEventListener('click', handleButtonClick);
+        });
+    }
+    
+    removeEventListener();
+    addEventListener();
 
 };
 
