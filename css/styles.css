@@ -1,3 +1,26 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: thistle;
+}
+
+header {
+    font-size: 30px;
+}
+
+#rock, #paper, #scissors {
+    font-size: 20px;
+}
+
+.gameBtns {
+    display: flex;
+    justify-content: space-between;
+}
+
