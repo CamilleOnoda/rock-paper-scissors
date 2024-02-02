@@ -1,25 +1,14 @@
-document.addEventListener("DOMContentLoaded", (event) => {
-    const choice = ['rock', 'scissors', 'paper'];
-    const score = 5;
-
-    let gameMessage = document.createElement('p');
-    let results = document.createElement('div');
-    let playerPoints = document.createElement('p');
-    let computerPoints = document.createElement('p');
-
-    document.body.appendChild(gameMessage);
-    document.body.appendChild(results);
-    results.appendChild(playerPoints);
-    results.appendChild(computerPoints);
-
+document.addEventListener("DOMContentLoaded", (_event) => {
 
     function capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+
     function computerChoice(choices) {
         return choices[Math.floor(Math.random() * choices.length)];
     }
+
 
     function playRound(player, computer, gameMessage, playerScore, computerScore) {
         if (player == computer) {
@@ -42,12 +31,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     };
 
+
     function game() {
+        const choice = ['rock', 'scissors', 'paper'];
+        const score = 5;
         let playerScore = {score : 0};
         let computerScore = {score : 0};
+    
+        let gameMessage = document.createElement('p');
+        let results = document.createElement('div');
+        let playerPoints = document.createElement('p');
+        let computerPoints = document.createElement('p');
 
-        const btns = document.querySelectorAll('#rock, #paper, #scissors');
-
+        
         function handleButtonClick(event) {
             let computerSelection = computerChoice(choice);
             playerSelection = event.target.id;
@@ -55,17 +51,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
             trackScore(playerScore, computerScore);
         };
 
+
         function addEventListener() {
+            const btns = document.querySelectorAll('#rock, #paper, #scissors');
             btns.forEach(btn => {
                 btn.addEventListener('click', handleButtonClick);
             });
         }
 
+
         function removeEventListener() {
+            const btns = document.querySelectorAll('#rock, #paper, #scissors');
             btns.forEach(btn => {
                 btn.removeEventListener('click', handleButtonClick);
             });
         }
+
 
         function trackScore(playerScore, computerScore) {
             playerPoints.textContent = `Your score: ${playerScore.score}`;
@@ -77,59 +78,60 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             if (playerScore.score == score || computerScore.score == score) {
                 if (playerScore.score == score) {
-                    playerPoints.textContent = "";
-                    computerPoints.textContent = "";
                     gameMessage.textContent = "You win!";
-    //                playerScore.score = 0;
-    //                computerScore.score = 0;
+                    results.remove();
                     restartGame();
                 };
         
                 if (computerScore.score == score) {
-                    playerPoints.textContent = "";
-                    computerPoints.textContent = "";
                     gameMessage.textContent = "The computer wins!";
-    //                playerScore.score = 0;
-    //                computerScore.score = 0;
+                    results.remove();
                     restartGame();
                 };
             };
         };
 
+
         function restartGame() {
             removeEventListener();
 
+            let restartMessage = document.createElement('div');
+                        
             let playAgain = document.createElement('p');
             playAgain.textContent = "Play again?";
-            document.body.appendChild(playAgain);
+            restartMessage.appendChild(playAgain);
 
             let yesButton = document.createElement('button');
             yesButton.textContent = "Yes";
             yesButton.id = 'yesPlay';
-            document.body.appendChild(yesButton);
+            restartMessage.appendChild(yesButton);
 
             let noButton = document.createElement('button');
             noButton.textContent = "No";
             noButton.id = 'noPlay';
-            document.body.appendChild(noButton);
+            restartMessage.appendChild(noButton);
+
+            document.body.append(restartMessage);
                 
             yesButton.addEventListener('click', () => {
-                const elementToRemove = document.querySelectorAll('p, #yesPlay, #noPlay');
-                elementToRemove.forEach(element => element.remove());
-
+                restartMessage.remove();
+                gameMessage.remove();
                 addEventListener();
                 game();
             });
             
             noButton.addEventListener('click', () => {
-                const elementToRemove = document.querySelectorAll('p, #yesPlay, #noPlay');
-                elementToRemove.forEach(element => element.remove());
+                restartMessage.remove();
+                gameMessage.remove();
             });
         };
 
+
         addEventListener();
+
 
     };
 
     game();
+
 });
