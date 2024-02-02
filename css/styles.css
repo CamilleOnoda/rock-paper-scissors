@@ -18,6 +18,10 @@ header {
 
 #rock, #paper, #scissors {
     font-size: 20px;
+    border-radius: 20%;
+    background-color: antiquewhite;
+    margin-bottom: 20px;
+    
 }
 
 .gameBtns {
