@@ -1,15 +1,4 @@
 document.addEventListener("DOMContentLoaded", (_event) => {
-
-    function capitalizeFirstLetter(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-
-    function computerChoice(choices) {
-        return choices[Math.floor(Math.random() * choices.length)];
-    }
-
-
     function game() {
         const choice = ['rock', 'scissors', 'paper'];
         const score = 5;
@@ -22,6 +11,16 @@ document.addEventListener("DOMContentLoaded", (_event) => {
         let computerPoints = document.createElement('p');
 
 
+        function capitalizeFirstLetter(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    
+    
+        function computerChoice(choices) {
+            return choices[Math.floor(Math.random() * choices.length)];
+        }
+
+        
         function playRound(player, computer, gameMessage, playerScore, computerScore) {
             if (player == computer) {
                 gameMessage.textContent = "It's a tie!";
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", (_event) => {
             }
         };
         
-        
+
         function handleButtonClick(event) {
             let computerSelection = computerChoice(choice);
             playerSelection = event.target.id;
