@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", (_event) => {
             yesButton.addEventListener('click', () => {
                 restartMessage.remove();
                 gameMessage.remove();
-                addEventListener();
                 game();
             });
             
