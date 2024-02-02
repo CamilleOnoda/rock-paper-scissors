@@ -10,28 +10,6 @@ document.addEventListener("DOMContentLoaded", (_event) => {
     }
 
 
-    function playRound(player, computer, gameMessage, playerScore, computerScore) {
-        if (player == computer) {
-            gameMessage.textContent = "It's a tie!";
-            document.body.appendChild(gameMessage);
-
-        } else if (
-        (player == "rock" && computer == "scissors" ) ||
-        (player == "scissors" && computer == "paper" ) ||
-        (player == "paper" && computer == "rock" )
-        ) {
-            gameMessage.textContent = `You win! ${capitalizeFirstLetter(player)} beats ${capitalizeFirstLetter(computer)}.`;
-            document.body.appendChild(gameMessage);
-            playerScore.score++;
-
-        } else {
-            gameMessage.textContent = `You lose! ${capitalizeFirstLetter(computer)} beats ${capitalizeFirstLetter(player)}.`;
-            document.body.appendChild(gameMessage);
-            computerScore.score++;
-        }
-    };
-
-
     function game() {
         const choice = ['rock', 'scissors', 'paper'];
         const score = 5;
@@ -43,6 +21,28 @@ document.addEventListener("DOMContentLoaded", (_event) => {
         let playerPoints = document.createElement('p');
         let computerPoints = document.createElement('p');
 
+
+        function playRound(player, computer, gameMessage, playerScore, computerScore) {
+            if (player == computer) {
+                gameMessage.textContent = "It's a tie!";
+                document.body.appendChild(gameMessage);
+    
+            } else if (
+            (player == "rock" && computer == "scissors" ) ||
+            (player == "scissors" && computer == "paper" ) ||
+            (player == "paper" && computer == "rock" )
+            ) {
+                gameMessage.textContent = `You win! ${capitalizeFirstLetter(player)} beats ${capitalizeFirstLetter(computer)}.`;
+                document.body.appendChild(gameMessage);
+                playerScore.score++;
+    
+            } else {
+                gameMessage.textContent = `You lose! ${capitalizeFirstLetter(computer)} beats ${capitalizeFirstLetter(player)}.`;
+                document.body.appendChild(gameMessage);
+                computerScore.score++;
+            }
+        };
+        
         
         function handleButtonClick(event) {
             let computerSelection = computerChoice(choice);
