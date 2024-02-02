@@ -13,6 +13,7 @@ body {
 
 header {
     font-size: 30px;
+    margin-bottom: 30px;
 }
 
 #rock, #paper, #scissors {
