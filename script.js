@@ -111,6 +111,12 @@ document.addEventListener("DOMContentLoaded", (_event) => {
             noButton.id = 'noPlay';
             restartMessage.appendChild(noButton);
 
+            let reloadPage = document.createElement('p');
+            reloadPage.textContent = "Click here if you want to restart the game."
+
+            let reloadPageButton = document.createElement('button');
+            reloadPageButton.textContent = "Reload the page."
+
             document.body.append(restartMessage);
                 
             yesButton.addEventListener('click', () => {
@@ -120,9 +126,15 @@ document.addEventListener("DOMContentLoaded", (_event) => {
             });
             
             noButton.addEventListener('click', () => {
+                document.body.appendChild(reloadPage);
+                document.body.appendChild(reloadPageButton);
                 restartMessage.remove();
                 gameMessage.remove();
             });
+
+            reloadPageButton.addEventListener('click', () => {
+                location.reload();
+            })
         };
 
 
