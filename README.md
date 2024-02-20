@@ -7,7 +7,8 @@
     <meta http-equiv='expires' content='0'> 
     <meta http-equiv='pragma' content='no-cache'>
 </head>
-<p>A very simple implementation of the game:</p>
+<p>Rock Paper Scissors</p>
+<p>Live: https://camilleonoda.github.io/rock-paper-scissors/</p>
 <ol>
 <li>The user is prompted to choose between rock, paper or scissors and the 
 computer’s choice is generated randomly.</li>
